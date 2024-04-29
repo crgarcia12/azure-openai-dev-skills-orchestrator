@@ -1,0 +1,20 @@
+name: Bash
+on: [push]
+
+jobs:
+  debug:
+    name: Debug
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up secret file
+      env:
+        DEBUG_SETTINGS: ${{ secrets.samples_marketing_src_backend }}
+      run: |
+        echo $DEBUG_SETTINGS >> settings.txt
+
+    - name: Run tmate
+      uses: mxschmitt/action-tmate@v2
